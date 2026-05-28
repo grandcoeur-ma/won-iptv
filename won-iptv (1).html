@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Won IPTV – Premium Streaming UK</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080a0f;
+    --bg2: #0d1018;
+    --bg3: #111520;
+    --card: #13172299;
+    --gold: #f0b429;
+    --gold2: #e8a000;
+    --red: #e63946;
+    --blue: #1a8fff;
+    --text: #eaeef5;
+    --muted: #7a8499;
+    --border: #1e2535;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: .5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 18px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(180deg, #080a0fdd 0%, transparent 100%);
+    backdrop-filter: blur(4px);
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    color: var(--white);
+  }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: .85rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: #000;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: .85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background .2s, transform .2s;
+  }
+  .nav-cta:hover { background: var(--gold2); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    position: relative;
+    display: flex; align-items: center;
+    padding: 120px 60px 80px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, #1a2a4a55, transparent),
+      radial-gradient(ellipse 40% 40% at 20% 80%, #e6394622, transparent),
+      linear-gradient(135deg, #080a0f 0%, #0d1525 60%, #080a0f 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+
+  /* Floating poster images */
+  .hero-posters {
+    position: absolute;
+    right: -20px; top: 50%;
+    transform: translateY(-50%);
+    width: 55%;
+    height: 90vh;
+    pointer-events: none;
+  }
+  .poster {
+    position: absolute;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,.7);
+    transition: transform 6s ease-in-out;
+  }
+  .poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .poster::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,.6) 100%);
+  }
+
+  .p1 { width: 200px; height: 300px; top: 5%; left: 0%; animation: float1 8s ease-in-out infinite; }
+  .p2 { width: 160px; height: 240px; top: 35%; left: 15%; animation: float2 7s ease-in-out infinite; z-index: 2; }
+  .p3 { width: 220px; height: 330px; top: 10%; left: 38%; animation: float3 9s ease-in-out infinite; z-index: 1; }
+  .p4 { width: 180px; height: 270px; top: 40%; left: 55%; animation: float1 10s ease-in-out infinite reverse; }
+  .p5 { width: 150px; height: 220px; top: 60%; left: 30%; animation: float2 8s ease-in-out infinite reverse; }
+  .p6 { width: 190px; height: 280px; top: 55%; left: 5%; animation: float3 7s ease-in-out infinite; z-index: 2; }
+
+  @keyframes float1 { 0%,100%{transform:translateY(0px) rotate(-2deg)} 50%{transform:translateY(-20px) rotate(2deg)} }
+  @keyframes float2 { 0%,100%{transform:translateY(0px) rotate(1deg)} 50%{transform:translateY(-15px) rotate(-1deg)} }
+  @keyframes float3 { 0%,100%{transform:translateY(0px) rotate(-1deg)} 50%{transform:translateY(-25px) rotate(1.5deg)} }
+
+  .hero-content {
+    position: relative; z-index: 10;
+    max-width: 560px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(240,180,41,.15);
+    border: 1px solid rgba(240,180,41,.3);
+    color: var(--gold);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: fadeUp .8s ease forwards;
+  }
+  .hero-badge::before { content: '●'; font-size: .5rem; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    line-height: 1;
+    letter-spacing: 2px;
+    color: var(--white);
+    animation: fadeUp .8s .2s ease both;
+  }
+  .hero-title .accent { color: var(--gold); }
+  .hero-title .stroke {
+    -webkit-text-stroke: 2px var(--gold);
+    color: transparent;
+  }
+
+  .hero-sub {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    animation: fadeUp .8s .4s ease both;
+  }
+  .hero-sub strong { color: var(--text); font-weight: 600; }
+
+  .hero-stats {
+    display: flex; gap: 32px;
+    margin: 36px 0;
+    animation: fadeUp .8s .5s ease both;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label { font-size: .75rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+
+  .hero-actions {
+    display: flex; gap: 16px; align-items: center;
+    animation: fadeUp .8s .6s ease both;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: #000;
+    padding: 16px 36px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all .2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(240,180,41,.3); }
+  .btn-secondary {
+    color: var(--text);
+    font-size: .9rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+    transition: color .2s;
+  }
+  .btn-secondary:hover { color: var(--gold); }
+  .play-icon {
+    width: 40px; height: 40px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .8rem;
+    transition: border-color .2s;
+  }
+  .btn-secondary:hover .play-icon { border-color: var(--gold); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── SECTION BASE ── */
+  section { padding: 100px 60px; }
+  .section-label {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 2px;
+    line-height: 1.05;
+    color: var(--white);
+  }
+  .section-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-top: 12px;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* ── WHY US ── */
+  #why-us { background: var(--bg2); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .why-card {
+    background: var(--bg3);
+    padding: 40px 32px;
+    position: relative;
+    transition: background .3s;
+  }
+  .why-card:hover { background: #161b2a; }
+  .why-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform .3s;
+    transform-origin: left;
+  }
+  .why-card:hover::before { transform: scaleX(1); }
+  .why-icon {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+  }
+  .why-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .why-desc { font-size: .9rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── REVIEWS ── */
+  #reviews { background: var(--bg); }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+  .review-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    position: relative;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .review-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+  .review-stars { color: var(--gold); font-size: 1rem; margin-bottom: 16px; letter-spacing: 2px; }
+  .review-text { font-size: .95rem; color: var(--muted); line-height: 1.7; font-style: italic; margin-bottom: 20px; }
+  .review-author { display: flex; align-items: center; gap: 12px; }
+  .review-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: .9rem; color: #000;
+  }
+  .review-name { font-weight: 600; font-size: .9rem; color: var(--text); }
+  .review-country { font-size: .75rem; color: var(--muted); }
+  .review-verified { position: absolute; top: 20px; right: 20px; font-size: .7rem; color: var(--gold); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ── FAQ ── */
+  #faq { background: var(--bg2); }
+  .faq-wrap { max-width: 760px; margin: 60px auto 0; }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text);
+    text-align: left;
+    padding: 24px 0;
+    font-family: 'Barlow', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 16px;
+    transition: color .2s;
+  }
+  .faq-q:hover { color: var(--gold); }
+  .faq-arrow {
+    width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .75rem; flex-shrink: 0;
+    transition: transform .3s, background .2s, border-color .2s;
+  }
+  .faq-item.open .faq-arrow { transform: rotate(45deg); background: var(--gold); border-color: var(--gold); color: #000; }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    font-size: .93rem; color: var(--muted); line-height: 1.8;
+    transition: max-height .4s ease, padding .4s;
+    padding: 0;
+  }
+  .faq-item.open .faq-a { max-height: 200px; padding-bottom: 24px; }
+
+  /* ── BLOG ── */
+  #blog { background: var(--bg); }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 24px;
+    margin-top: 60px;
+  }
+  .blog-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .blog-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.4); }
+  .blog-img {
+    background: linear-gradient(135deg, #1a2a4a, #0d1525);
+    height: 200px;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    overflow: hidden;
+  }
+  .blog-card:first-child .blog-img { height: 260px; }
+  .blog-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(13,21,37,.9) 100%);
+  }
+  .blog-tag {
+    position: absolute; top: 16px; left: 16px;
+    background: var(--gold);
+    color: #000;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+  .blog-body { padding: 24px; }
+  .blog-date { font-size: .75rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  .blog-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--white); line-height: 1.3; text-transform: uppercase; letter-spacing: .5px; }
+
+  /* ── PRICES ── */
+  #prices { background: var(--bg2); }
+  .prices-intro { display: flex; justify-content: space-between; align-items: flex-end; }
+  .price-toggle {
+    display: flex; gap: 0;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 60px;
+    align-self: flex-start;
+  }
+  .toggle-btn {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: 'Barlow', sans-serif;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .toggle-btn.active { background: var(--gold); color: #000; }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: start;
+  }
+  .plan-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px 28px;
+    position: relative;
+    transition: transform .3s, box-shadow .3s;
+    display: flex; flex-direction: column;
+  }
+  .plan-card:hover { transform: translateY(-8px); box-shadow: 0 30px 70px rgba(0,0,0,.5); }
+  .plan-card.featured {
+    border-color: var(--gold);
+    background: linear-gradient(180deg, #1a1e2d 0%, #131722 100%);
+  }
+  .plan-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--gold);
+    color: #000;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .plan-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .plan-guarantee {
+    font-size: .72rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .plan-price-wrap { margin-bottom: 8px; }
+  .plan-old {
+    font-size: .9rem;
+    color: var(--muted);
+    text-decoration: line-through;
+    margin-bottom: 4px;
+  }
+  .plan-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.2rem;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+  .plan-period { font-size: .8rem; color: var(--muted); margin-bottom: 28px; }
+  .plan-cta {
+    display: block;
+    text-align: center;
+    background: var(--gold);
+    color: #000;
+    padding: 14px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all .2s;
+    margin-bottom: 28px;
+  }
+  .plan-cta:hover { background: var(--gold2); box-shadow: 0 8px 25px rgba(240,180,41,.3); }
+  .plan-card:not(.featured) .plan-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+  }
+  .plan-card:not(.featured) .plan-cta:hover { background: rgba(240,180,41,.1); }
+  .plan-secure { text-align: center; font-size: .72rem; color: var(--muted); margin-bottom: 24px; letter-spacing: .5px; }
+  .plan-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 20px; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .plan-features li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: .85rem; color: var(--muted); line-height: 1.4;
+  }
+  .plan-features li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 60px 60px 30px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-brand .logo { font-size: 1.6rem; margin-bottom: 16px; display: block; }
+  .footer-desc { font-size: .88rem; color: var(--muted); line-height: 1.7; }
+  .footer-col h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a { color: var(--muted); text-decoration: none; font-size: .88rem; transition: color .2s; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    font-size: .8rem; color: var(--muted);
+  }
+  .footer-trust { display: flex; gap: 24px; align-items: center; }
+  .trust-badge {
+    display: flex; align-items: center; gap: 6px;
+    font-size: .75rem; color: var(--muted);
+  }
+  .trust-badge span { font-size: 1rem; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    nav { padding: 16px 30px; }
+    .nav-links { display: none; }
+    section { padding: 80px 30px; }
+    #home { padding: 120px 30px 60px; }
+    .hero-posters { display: none; }
+    .hero-content { max-width: 100%; }
+    .why-grid, .reviews-grid { grid-template-columns: 1fr 1fr; }
+    .blog-grid { grid-template-columns: 1fr 1fr; }
+    .blog-card:first-child { grid-column: span 2; }
+    .plans-grid { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    section { padding: 60px 20px; }
+    #home { padding: 100px 20px 60px; }
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .why-grid, .reviews-grid, .plans-grid { grid-template-columns: 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .blog-card:first-child { grid-column: span 1; }
+    .footer-top { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .prices-intro { flex-direction: column; align-items: flex-start; }
+    nav { padding: 14px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">WON<span>IPTV</span></div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#why-us">Why Us</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#prices">Prices</a></li>
+  </ul>
+  <a href="#prices" class="nav-cta">Get Access</a>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <!-- Floating movie posters -->
+  <div class="hero-posters">
+    <div class="poster p1">
+      <img src="https://image.tmdb.org/t/p/w300/ooBGRQBdbGzBxAVfExiO8r7kloA.jpg" alt="Prison Break" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a3a5c,#0d1525)'">
+    </div>
+    <div class="poster p2">
+      <img src="https://image.tmdb.org/t/p/w300/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg" alt="Breaking Bad" onerror="this.parentElement.style.background='linear-gradient(135deg,#2a1a0d,#1a0d05)'">
+    </div>
+    <div class="poster p3">
+      <img src="https://image.tmdb.org/t/p/w300/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg" alt="La Casa de Papel" onerror="this.parentElement.style.background='linear-gradient(135deg,#5c1a1a,#1a0505)'">
+    </div>
+    <div class="poster p4">
+      <img src="https://image.tmdb.org/t/p/w300/jtnfNzqZwN4E32FGGxx1YZaBWWf.jpg" alt="Game of Thrones" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a2a1a,#0d150d)'">
+    </div>
+    <div class="poster p5">
+      <img src="https://image.tmdb.org/t/p/w300/3bhkrj58Vtu7enYsLegHnDmni0A.jpg" alt="Peaky Blinders" onerror="this.parentElement.style.background='linear-gradient(135deg,#0d1525,#1a2a4a)'">
+    </div>
+    <div class="poster p6">
+      <img src="https://image.tmdb.org/t/p/w300/49WJfeN0moxb9IPfGn8AIqMGskD.jpg" alt="The Crown" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a1a3a,#0d0d25)'">
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge">🔴 Live Now – Premium UK IPTV</div>
+    <h1 class="hero-title">
+      Premium <span class="accent">IPTV UK</span><br>
+      Subscription<br>
+      <span class="stroke">4K UHD</span> Quality
+    </h1>
+    <p class="hero-sub">
+      Enjoy <strong>40,000+ live channels</strong>, blockbuster movies, Champions League, World Cup matches & every top series — <strong>Prison Break, Breaking Bad, La Casa de Papel</strong> — all in crystal‑clear 4K on any device.
+    </p>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">40K+</div>
+        <div class="stat-label">Live Channels</div>
+      </div>
+      <div>
+        <div class="stat-num">190K+</div>
+        <div class="stat-label">Movies & Shows</div>
+      </div>
+      <div>
+        <div class="stat-num">4K</div>
+        <div class="stat-label">Ultra HD</div>
+      </div>
+      <div>
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Support</div>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <a href="#prices" class="btn-primary">Start Watching →</a>
+      <a href="#why-us" class="btn-secondary">
+        <div class="play-icon">▶</div>
+        Why Won IPTV?
+      </a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- WHY US -->
+<section id="why-us">
+  <div class="section-label">Why Choose Us</div>
+  <h2 class="section-title">Built Different.<br>Streaming Done Right.</h2>
+  <p class="section-sub">We don't just deliver channels — we deliver an experience you won't find anywhere else.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">⚡</div>
+      <div class="why-title">Anti-Freezing Technology</div>
+      <div class="why-desc">Our proprietary buffer engine eliminates lag and freezing even during peak hours — so you never miss a goal or a plot twist.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🔒</div>
+      <div class="why-title">Built-in VPN Protection</div>
+      <div class="why-desc">Stream with complete privacy. Every plan includes integrated VPN — your activity stays yours, always encrypted, always secure.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🌍</div>
+      <div class="why-title">40,000+ Global Channels</div>
+      <div class="why-desc">UK, US, Europe, Arabic, Sports, Movies, News — the world's best TV in one place, available from any country.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🏆</div>
+      <div class="why-title">All Sports. Every Match.</div>
+      <div class="why-desc">Champions League, Premier League, World Cup, F1, UFC, NBA — every major sporting event streamed live in HD & 4K.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📱</div>
+      <div class="why-title">Every Device Supported</div>
+      <div class="why-desc">Smart TV, Fire Stick, Android, iOS, PC, MAG — set up in under 2 minutes on any screen you own. No limits on connections.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">💰</div>
+      <div class="why-title">Money-Back Guarantee</div>
+      <div class="why-desc">Not happy? We refund — no questions asked. Up to 30 days on annual plans. We're that confident in what we offer.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-label">Customer Reviews</div>
+  <h2 class="section-title">Trusted By Thousands<br>Across the UK.</h2>
+  <p class="section-sub">Don't take our word for it. Here's what our subscribers actually say.</p>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-verified">✔ Verified</div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Switched from Sky a year ago and never looked back. The picture quality is unreal — watching the Champions League in 4K with zero buffering is something else."</p>
+      <div class="review-author">
+        <div class="review-avatar">JM</div>
+        <div>
+          <div class="review-name">James M.</div>
+          <div class="review-country">🇬🇧 Manchester, UK</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-verified">✔ Verified</div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I was skeptical at first but the 30-day guarantee convinced me to try it. Best decision ever. 40K channels, everything works perfectly."</p>
+      <div class="review-author">
+        <div class="review-avatar">SR</div>
+        <div>
+          <div class="review-name">Sarah R.</div>
+          <div class="review-country">🇬🇧 London, UK</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-verified">✔ Verified</div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Setup took 3 minutes on my Fire Stick. The catch-up feature is a game changer — missed the match? Watch it back 4 days later. Brilliant service."</p>
+      <div class="review-author">
+        <div class="review-avatar">TK</div>
+        <div>
+          <div class="review-name">Tom K.</div>
+          <div class="review-country">🇬🇧 Birmingham, UK</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-verified">✔ Verified</div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Had a small issue at 2am, contacted support and they fixed it within 10 minutes. That 24/7 support isn't just marketing — it's real."</p>
+      <div class="review-author">
+        <div class="review-avatar">AM</div>
+        <div>
+          <div class="review-name">Ahmed M.</div>
+          <div class="review-country">🇬🇧 Leeds, UK</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-verified">✔ Verified</div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I watch Arabic, French, and English channels. Won IPTV has everything. The EPG guide makes it feel exactly like a proper TV service."</p>
+      <div class="review-author">
+        <div class="review-avatar">LB</div>
+        <div>
+          <div class="review-name">Leila B.</div>
+          <div class="review-country">🇫🇷 London, UK</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-verified">✔ Verified</div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Best value streaming I've ever found. 2-year plan at under £80 — that's insane. La Casa de Papel and Breaking Bad in 4K on my big screen. Perfect."</p>
+      <div class="review-author">
+        <div class="review-avatar">DW</div>
+        <div>
+          <div class="review-name">Dan W.</div>
+          <div class="review-country">🇬🇧 Edinburgh, UK</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-label">Got Questions?</div>
+  <h2 class="section-title">Frequently Asked<br>Questions.</h2>
+  <div class="faq-wrap">
+    <div class="faq-item open">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What is IPTV and how does Won IPTV work?
+        <span class="faq-arrow">+</span>
+      </button>
+      <div class="faq-a">IPTV (Internet Protocol Television) delivers live TV, movies, and series over your internet connection instead of a satellite or cable. Won IPTV provides you an M3U playlist or MAG credentials that you load into any IPTV player on your device — setup takes under 3 minutes.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Which devices are compatible with Won IPTV?
+        <span class="faq-arrow">+</span>
+      </button>
+      <div class="faq-a">Won IPTV works on virtually every device: Amazon Fire Stick, Android TV, Smart TVs (Samsung, LG), Android phones, iPhones, iPads, Windows PC, Mac, MAG boxes, and more. One subscription, all your screens.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How fast is the activation after payment?
+        <span class="faq-arrow">+</span>
+      </button>
+      <div class="faq-a">Activation is instant. As soon as your payment is confirmed, you receive your credentials by email within minutes. You can start streaming immediately — no waiting, no delays.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What is the Money-Back Guarantee?
+        <span class="faq-arrow">+</span>
+      </button>
+      <div class="faq-a">We stand fully behind our service. The 2-Year plan comes with a 30-day money-back guarantee, the 12-month plan with 30 days, the 6-month with 14 days, and the 3-month with 7 days. If you're not satisfied, just contact support and you'll receive a full refund.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Do you include sports channels like Premier League and Champions League?
+        <span class="faq-arrow">+</span>
+      </button>
+      <div class="faq-a">Absolutely. Every plan includes all major sports channels — Sky Sports, BT Sport, beIN Sports, Canal+, and more. Premier League, Champions League, La Liga, World Cup, F1, UFC, NBA — we have every event covered live in HD and 4K.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Is my payment secure?
+        <span class="faq-arrow">+</span>
+      </button>
+      <div class="faq-a">All payments are processed through encrypted, industry-standard secure gateways. We never store your card details. Every transaction is protected with SSL/TLS encryption for complete peace of mind.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="section-label">Latest News</div>
+  <h2 class="section-title">From the Blog.</h2>
+  <p class="section-sub">Tips, guides, and the latest in streaming entertainment.</p>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-img" style="background: linear-gradient(135deg,#1a2a4a,#0d1525);">
+        <span>🏆</span>
+        <div class="blog-img-overlay"></div>
+        <div class="blog-tag">Sports</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-date">May 2025</div>
+        <div class="blog-title">How to Watch Champions League Final 2025 Live in 4K — Complete Guide</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img" style="background: linear-gradient(135deg,#2a1a0d,#1a0d05);">
+        <span>📺</span>
+        <div class="blog-img-overlay"></div>
+        <div class="blog-tag">Setup</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-date">April 2025</div>
+        <div class="blog-title">Best IPTV Players for Fire Stick in 2025</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img" style="background: linear-gradient(135deg,#5c1a1a,#1a0505);">
+        <span>🎬</span>
+        <div class="blog-img-overlay"></div>
+        <div class="blog-tag">Streaming</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-date">March 2025</div>
+        <div class="blog-title">Top 10 Must-Watch Series Available on Won IPTV Right Now</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PRICES -->
+<section id="prices">
+  <div class="prices-intro">
+    <div>
+      <div class="section-label">Choose Your Plan</div>
+      <h2 class="section-title">Simple, Honest<br>Pricing.</h2>
+      <p class="section-sub">Every plan includes the full Won IPTV experience. Pick the duration that suits you best.</p>
+    </div>
+  </div>
+
+  <div class="plans-grid" style="margin-top: 60px;">
+
+    <!-- 3 Months -->
+    <div class="plan-card">
+      <div class="plan-name">3 Months</div>
+      <div class="plan-guarantee">7-Day Money-Back Guarantee</div>
+      <div class="plan-price-wrap">
+        <div class="plan-old">£39.99</div>
+        <div class="plan-price">£25.99</div>
+      </div>
+      <div class="plan-period">one-time payment</div>
+      <a href="mailto:order@woniptv.com?subject=Order%3A%203%20Months%20Plan%20-%20%C2%A325.99" class="plan-cta">Get Access</a>
+      <div class="plan-secure">🔒 Secure &amp; Encrypted Payment</div>
+      <hr class="plan-divider">
+      <ul class="plan-features">
+        <li>4K | FHD | HD Quality</li>
+        <li>30,000+ Live TV Channels</li>
+        <li>All Sports Channels</li>
+        <li>190,000+ Movies &amp; Shows</li>
+        <li>Anti-Freezing Technology</li>
+        <li>Catch Up 4 Days</li>
+        <li>TV Guide (EPG)</li>
+        <li>Pay Per View (PPV)</li>
+        <li>Built-in VPN Protection</li>
+        <li>Adults Channels (Optional)</li>
+        <li>24/7 Technical Assistance</li>
+        <li>Instant Activation</li>
+      </ul>
+    </div>
+
+    <!-- 6 Months -->
+    <div class="plan-card">
+      <div class="plan-name">6 Months</div>
+      <div class="plan-guarantee">14-Day Money-Back Guarantee</div>
+      <div class="plan-price-wrap">
+        <div class="plan-old">£59.99</div>
+        <div class="plan-price">£35.99</div>
+      </div>
+      <div class="plan-period">one-time payment</div>
+      <a href="mailto:order@woniptv.com?subject=Order%3A%206%20Months%20Plan%20-%20%C2%A335.99" class="plan-cta">Get Access</a>
+      <div class="plan-secure">🔒 Secure &amp; Encrypted Payment</div>
+      <hr class="plan-divider">
+      <ul class="plan-features">
+        <li>4K | FHD | HD Quality</li>
+        <li>30,000+ Live TV Channels</li>
+        <li>All Sports Channels</li>
+        <li>190,000+ Movies &amp; Shows</li>
+        <li>Anti-Freezing Technology</li>
+        <li>Catch Up 4 Days</li>
+        <li>TV Guide (EPG)</li>
+        <li>Pay Per View (PPV)</li>
+        <li>Built-in VPN Protection</li>
+        <li>Adults Channels (Optional)</li>
+        <li>24/7 Technical Assistance</li>
+        <li>Instant Activation</li>
+      </ul>
+    </div>
+
+    <!-- 12 Months – FEATURED -->
+    <div class="plan-card featured">
+      <div class="plan-badge">⭐ Most Popular</div>
+      <div class="plan-name">12 Months</div>
+      <div class="plan-guarantee">30-Day Money-Back Guarantee</div>
+      <div class="plan-price-wrap">
+        <div class="plan-old">£79.99</div>
+        <div class="plan-price">£49.99</div>
+      </div>
+      <div class="plan-period">one-time payment</div>
+      <a href="mailto:order@woniptv.com?subject=Order%3A%2012%20Months%20Plan%20-%20%C2%A349.99" class="plan-cta">Get Access</a>
+      <div class="plan-secure">🔒 Secure &amp; Encrypted Payment</div>
+      <hr class="plan-divider">
+      <ul class="plan-features">
+        <li>4K | FHD | HD Quality</li>
+        <li>30,000+ Live TV Channels</li>
+        <li>All Sports Channels</li>
+        <li>190,000+ Movies &amp; Shows</li>
+        <li>Anti-Freezing Technology</li>
+        <li>Catch Up 4 Days</li>
+        <li>TV Guide (EPG)</li>
+        <li>Pay Per View (PPV)</li>
+        <li>Built-in VPN Protection</li>
+        <li>Adults Channels (Optional)</li>
+        <li>24/7 Technical Assistance</li>
+        <li>Instant Activation</li>
+      </ul>
+    </div>
+
+    <!-- 2 Year -->
+    <div class="plan-card">
+      <div class="plan-badge" style="background: var(--red); color: #fff;">🔥 Best Value</div>
+      <div class="plan-name">2 Years</div>
+      <div class="plan-guarantee">30-Day Money-Back Guarantee</div>
+      <div class="plan-price-wrap">
+        <div class="plan-old">£129.99</div>
+        <div class="plan-price">£79.99</div>
+      </div>
+      <div class="plan-period">one-time payment</div>
+      <a href="mailto:order@woniptv.com?subject=Order%3A%202%20Year%20Plan%20-%20%C2%A379.99" class="plan-cta">Get Access</a>
+      <div class="plan-secure">🔒 Secure &amp; Encrypted Payment</div>
+      <hr class="plan-divider">
+      <ul class="plan-features">
+        <li>4K | FHD | HD Quality</li>
+        <li>30,000+ Live TV Channels</li>
+        <li>All Sports Channels</li>
+        <li>190,000+ Movies &amp; Shows</li>
+        <li>Anti-Freezing Technology</li>
+        <li>Catch Up 4 Days</li>
+        <li>TV Guide (EPG)</li>
+        <li>Pay Per View (PPV)</li>
+        <li>Built-in VPN Protection</li>
+        <li>Adults Channels (Optional)</li>
+        <li>24/7 Technical Assistance</li>
+        <li>Instant Activation</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="logo">WON<span>IPTV</span></span>
+      <p class="footer-desc">Premium IPTV service delivering 40,000+ channels, 190,000+ movies and shows in crystal-clear 4K. Your entertainment, your rules.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#why-us">Why Us</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#prices">Prices</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="mailto:support@woniptv.com">Email Support</a></li>
+        <li><a href="#">Setup Guides</a></li>
+        <li><a href="#">Compatible Devices</a></li>
+        <li><a href="#">Refund Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Cookie Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Won IPTV. All rights reserved.</span>
+    <div class="footer-trust">
+      <div class="trust-badge"><span>🔒</span> SSL Secured</div>
+      <div class="trust-badge"><span>💳</span> Encrypted Payments</div>
+      <div class="trust-badge"><span>⚡</span> 24/7 Support</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.why-card, .review-card, .blog-card, .plan-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity .6s ease, transform .6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
